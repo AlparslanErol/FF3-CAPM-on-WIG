@@ -138,4 +138,22 @@ url = 'https://stooq.com/q/d/?s=wig&c=0&i=q'
 driver.get(url)
 driver.find_element_by_xpath('/html/body/div/div[2]/div[1]/div[2]/div[2]/button[1]').click()  #cookies
 text = driver.find_element_by_xpath('//*[@id="fth1"]').text
-text_df = text.split()[8:]   
+text_df = text.split()[8:]
+list_to_df = []
+for page_num in range(1,5):
+    url = 'https://stooq.com/q/d/?s=wig&i=q&l='+str(page_num)
+    driver.get(url)
+    text = driver.find_element_by_xpath('//*[@id="fth1"]').text
+    text_df = text.split()[8:]   
+    n = 11 
+    list_to_add = [text_df[i:i + n] for i in range(0, len(text_df), n)]
+    list_to_df.append(list_to_add)
+    flat_list = itertools.chain(*list_to_df)
+    flat_list = list(flat_list)
+
+wig_df = pd.DataFrame(flat_list, columns = ['No', 'day','mon', 'year', 'open', 'high', 'low', 'close', 'perc_change',
+                                               'abs_change', 'vol'])
+#dates formatting
+wig_df = dates_format(wig_df)   
+#save to csv
+wig_df.to_csv('D:/UW/4 semester/Empirics/project/wig_df.csv') 
