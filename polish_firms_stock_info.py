@@ -128,3 +128,14 @@ wig_stocks = dates_format(wig_stocks)
 
 #save to csv
 wig_stocks.to_csv('D:/UW/4 semester/Empirics/project/wig_stocks.csv') 
+
+#########################################################################################################################################
+#wig market data scrapping
+
+#setting up selenium driver
+driver = webdriver.Chrome(executable_path=r'D:\\UW\\2nd semester\\Webscrapping\\chromedriver.exe')
+url = 'https://stooq.com/q/d/?s=wig&c=0&i=q'
+driver.get(url)
+driver.find_element_by_xpath('/html/body/div/div[2]/div[1]/div[2]/div[2]/button[1]').click()  #cookies
+text = driver.find_element_by_xpath('//*[@id="fth1"]').text
+text_df = text.split()[8:]   
