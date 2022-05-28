@@ -1,4 +1,3 @@
-import time
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
@@ -26,27 +25,3 @@ def get_chrome_driver() -> webdriver.Chrome:
     chrome_options.add_argument("--disable-dev-shm-usage")
 
     return webdriver.Chrome(options=chrome_options)
-
-
-# dates reformatting
-def dates_format(df: pd.DataFrame) -> pd.DataFrame:
-    df.loc[df.mon == "Dec", "mon"] = "12"
-    df.loc[df.mon == "Mar", "mon"] = "03"
-    df.loc[df.mon == "Jun", "mon"] = "06"
-    df.loc[df.mon == "Sep", "mon"] = "09"
-    df["period"] = df["day"] + "-" + df["mon"] + "-" + df["year"]
-    df.drop(["day", "mon", "year"], axis=1, inplace=True)
-    return df
-
-
-def setup_selenium_env(driver, type):
-    url = (
-        "https://stooq.com/q/d/?s=BMC&i=q&l=1"
-        if type == "company"
-        else "https://stooq.com/q/d/?s=wig&c=0&i=q"
-    )
-    driver.get(url)
-    driver.find_element_by_xpath(
-        "/html/body/div/div[2]/div[1]/div[2]/div[2]/button[1]"
-    ).click()  # cookies
-    time.sleep(20)
