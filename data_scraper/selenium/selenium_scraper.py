@@ -40,20 +40,21 @@ class SeleniumScraper:
                     self._get_url_driver(ticker, page_num)
                     text_df = self._prepare_text_df()
                     text_df = self._exclude_from_scraping(text_df)
+                    self._list_to_add(text_df, list_to_df)
             except:
                 try:
                     if (
                         self.driver.find_element_by_xpath('//*[@id="l"]/a').text
                         == "Change code"
                     ):
-                        time.sleep(5)
+                        time.sleep(30)
                         text_df = self._prepare_text_df()
                         text_df = self._exclude_from_scraping(text_df)
+                        self._list_to_add(text_df, list_to_df)
                     else:
-                        continue
+                        pass
                 except:
-                    continue
-                self._list_to_add(text_df, list_to_df)
+                    pass
             self._data_pre_formatting(list_to_df, ticker)
         self.wig_stocks = self.dates_format(self.wig_stocks)
         # save to csv
