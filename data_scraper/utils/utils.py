@@ -1,12 +1,11 @@
 import pandas as pd
 import requests
 from bs4 import BeautifulSoup
-from typing import List
 from selenium import webdriver
 import chromedriver_autoinstaller
 
 
-def get_wig_list() -> List:
+def get_wig_list() -> pd.DataFrame:
     url = "https://www.bankier.pl/inwestowanie/profile/quote.html?symbol=WIG"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
