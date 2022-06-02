@@ -32,7 +32,7 @@ conda environment as we have.
 1. Create the environment from the ``environment.yml`` file:
 
 ```shell
-conda env create -f environment.yml
+conda env create -f environment.yml -n ff3_env
 ```
 
 The first line of the ``yml`` file sets the new environment's name. For details see Creating an environment file manually.
