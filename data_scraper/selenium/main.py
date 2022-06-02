@@ -8,6 +8,10 @@ def main(args=None):
 
 
 if __name__ == "__main__":
+    """
+    Create arg parser to parse arguments from the terminal to decide the type of scraper if it will be 
+    a "company" type scraper or a "wig" type scraper.
+    """
     my_parser = argparse.ArgumentParser()
     my_parser.add_argument(
         "-s",
