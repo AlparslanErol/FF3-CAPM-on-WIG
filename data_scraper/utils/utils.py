@@ -6,6 +6,10 @@ import chromedriver_autoinstaller
 
 
 def get_wig_list() -> pd.DataFrame:
+    """
+    This is a function that we have created and use it as utility function which is getting wig_data in a list.
+    :return: Returns wig_data in a list.
+    """
     url = "https://www.bankier.pl/inwestowanie/profile/quote.html?symbol=WIG"
     response = requests.get(url)
     soup = BeautifulSoup(response.text, "html.parser")
@@ -16,6 +20,11 @@ def get_wig_list() -> pd.DataFrame:
 
 
 def get_chrome_driver() -> webdriver.Chrome:
+    """
+    This is a function that we have created and use it as utility function which is creating selenium chrome webdriver
+    for our both wig and company data scraper pipeline.
+    :return: Returns the Chrome web driver based on the arguments below.
+    """
     chromedriver_autoinstaller.install()
     # Chrome options
     chrome_options = webdriver.ChromeOptions()

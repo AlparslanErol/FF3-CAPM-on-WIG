@@ -6,6 +6,7 @@ from bs4 import BeautifulSoup
 import re
 from ..utils.utils import get_wig_list
 
+# get wig data
 wig_list = get_wig_list()
 
 # financial data
@@ -13,17 +14,18 @@ wig_data = pd.DataFrame()
 wig_names = wig_list.Nazwa
 
 counter = 1
-for name in wig_names:
+for name in wig_names:  # looping into the wig_list
     page = 1
     fin_report = []
     while fin_report is not None:
         url = (
-            "https://www.bankier.pl/gielda/notowania/akcje/"
-            + str(name)
-            + "/wyniki-finansowe/jednostkowy/kwartalny/standardowy/"
-            + str(page)
+                "https://www.bankier.pl/gielda/notowania/akcje/"
+                + str(name)
+                + "/wyniki-finansowe/jednostkowy/kwartalny/standardowy/"
+                + str(page)
         )
         response = requests.get(url)
+        # Beautiful soup has been used to scrape wig_data from "bankier.pl"
         soup = BeautifulSoup(response.text, "html.parser")
         try:
             fin_report = soup.find("table")
@@ -38,7 +40,7 @@ for name in wig_names:
             page += 1
         except:
             pass
-    print(counter, name, len(wig_data))
+    print(counter, name, len(wig_data))  # this is used to track the scraping process as a console output
     counter += 1
 
 # data cleaning and formatting
